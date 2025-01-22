@@ -3,52 +3,39 @@ using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using System.Security.AccessControl;
 
-public class Employee
-{
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Department { get; set; }
-    public string Position { get; set; }
 
-    public Employee(string name, string id, string department, string position)
-    {
-        Id = id;
-        Name = name;
-        Department = department;
-        Position = position;
-    }
-}
 
-// Класс для работы с данными
-public class Employees
-{
-    public Employees(List<Employee> listEmployees)
+//Основной класс
+    // Абстрактный класс
+    abstract class Animal
     {
-        _listEmployees = listEmployees;
+        public string Name;
+
+        public Animal(string name)
+        {
+            Name = name;
+        }
+
+        // Абстрактный метод (не имеет реализации)
+        public abstract void Speak();
     }
 
-    private List<Employee> _listEmployees;
-    
-    public Employee FindEmployeeById(string id)
+    // Класс-наследник от абстрактного класса
+    class Cat : Animal
     {
+        public string Breed;
 
-    }
-    
-    public void AddEmployee(Employee employee)
-    {
+        public Cat(string name, string breed) : base(name)
+        {
+            Breed = breed;
+        }
 
+        // Реализация абстрактного метода
+        public override void Speak()
+        {
+            Console.WriteLine($"{Name} says Meow!");
+        }
     }
-    
-    public void UpdateEmployee(Employee employee)
-    {
-
-    }
-    
-    public void RemoveEmployee(string id)
-    {
-
-    }
-}
 
 
 
@@ -56,41 +43,42 @@ public class Program
 {   
     public static void Main()
     {    
-        Employee employee1 = new Employee("Сьюзан Майерс","47899","Бухгалтерия","Вице-президент");
-        Employee employee2 = new Employee("Боб","12345","Офис","Работник");
+        //Создаем новые объекты класса
+        Cat cat1 = new Cat("Бобик","дворняга");
+        cat1.Speak();
 
-        List<Employee> employees = new List<Employee> {employee1, employee2};
-
-        Console.WriteLine("1. Найти сотрудника по идентификационному номеру");
-        Console.WriteLine("2. Добавить нового сотрудника");
-        Console.WriteLine("3. Изменить имя, отдел и должность существующего сотрудника");
-        Console.WriteLine("4. Удалить сотрудника");
-        Console.WriteLine("0. Выйти из программы");
-
-
-var emploeesList = new Employees(employees);
-        var flag = true;
-        while (flag)
-        {
-            var choice = Console.ReadLine();
-            switch (choice)
-            {
-                case "1":
-
-                case "2":
-
-                case "3":
-
-                case "4":
-
-                case "0":
-                    flag = false;
-                    break;
-                default:
-                    Console.WriteLine("Неверное значение");
-                    break;
-            
-            }
-        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

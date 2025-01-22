@@ -12,3 +12,4 @@ C:\tasks\task1\obj\Debug\net9.0\refint\task1.dll
 C:\tasks\task1\obj\Debug\net9.0\task1.pdb
 C:\tasks\task1\obj\Debug\net9.0\task1.genruntimeconfig.cache
 C:\tasks\task1\obj\Debug\net9.0\ref\task1.dll
+C:\tasks\task1\obj\Debug\net9.0\task1.sourcelink.json
