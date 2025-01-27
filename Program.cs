@@ -3,129 +3,75 @@ using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using System.Security.AccessControl;
 
-public class Employee
+
+
+// Класс "Игра" (Game)
+public class Game
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Department { get; set; }
-    public string Position { get; set; }
+    private Hero hero;
+    private List<Monster> monsters;
+    private List<Item> inventory;
 
-    public Employee(string name, string id, string department, string position)
+    public Game()
     {
-        Id = id;
-        Name = name;
-        Department = department;
-        Position = position;
-    }
-}
-
-
-public class Employees
-{
-    private List<Employee> _listEmployees;
-    
-    public Employees(List<Employee> listEmployees)
-    {
-        _listEmployees = listEmployees;
-    }
-    
-    //public Employee FindEmployeeById(string id)
-    public void FindEmployeeById(string id)
-    {
- 
-    }
-    
-    public void AddEmployee(Employee employee)
-    {
-       
-    }
-    
-    public void UpdateEmployee(Employee employee)
-    {
-       
-    }
-    
-    public void RemoveEmployee(string id)
-    {
-      
-    }
-}
-
-public class Program
-{   
-    public static void Main()
-    {    
-        Employee employee1 = new Employee("Сьюзан Майерс","47899","Бухгалтерия","Вице-президент");
-        Employee employee2 = new Employee("Боб","12345","Офис","Работник");
-        Employee employee3 = new Employee("Джон","54321","Охрана","Охранник");
-
-        var employees = new List<Employee> {employee1, employee2};
-        employees.Add(employee3);
-
-        Console.WriteLine("1. Найти сотрудника по идентификационному номеру");
-        Console.WriteLine("2. Добавить нового сотрудника");
-        Console.WriteLine("3. Изменить имя, отдел и должность существующего сотрудника");
-        Console.WriteLine("4. Удалить сотрудника");
-        Console.WriteLine("0. Выйти из программы");
-
-        var emploeesList = new Employees(employees);
-        var flag = true;
-        while (flag)
+        hero = new Hero("Knight", 100, 20);
+        monsters = new List<Monster>
         {
-            var choice = Console.ReadLine();
-            switch (choice)
-            {
-                case "1":
-                   
-                    break;
-                case "2":
+            new Monster("Goblin", 30, 5),
+            new Monster("Orc", 50, 10)
+        };
+        inventory = new List<Item>
+        {
+            new HealingPotion("Small Healing Potion", "Heals 20 health points", 20)
+        };
+    }
 
-                    break;
-                case "3":
-                    
-                    break;
-                case "4":
-                    
-                    break;
-                case "0":
-                    flag = false;
-                    break;
-                default:
-                    Console.WriteLine("Неверное значение");
-                    break;
-            
+    public void Play()
+    {
+        Console.WriteLine("Welcome to the RPG Game!");
+        Console.WriteLine($"{hero.Name} starts the journey with {hero.Health} health and {hero.AttackPower} attack power.");
+
+        foreach (var monster in monsters)
+        {
+            Console.WriteLine($"\nA wild {monster.Name} appears!");
+
+            while (monster.Health > 0 && hero.Health > 0)
+            {
+                hero.Attack(monster);
+                if (monster.Health > 0)
+                {
+                    monster.Attack(hero);
+                }
+            }
+
+            if (hero.Health > 0)
+            {
+                Console.WriteLine($"{hero.Name} defeated the {monster.Name}!");
+            }
+            else
+            {
+                Console.WriteLine($"{hero.Name} was defeated by the {monster.Name}...");
+                return;
             }
         }
+
+        Console.WriteLine($"\n{hero.Name} has defeated all the monsters!");
+
+        foreach (var item in inventory)
+        {
+            item.Use(hero);
+        }
+
+        Console.WriteLine($"{hero.Name} has {hero.Health} health remaining after using items.");
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Основной класс для запуска игры
+public class Program
+{
+    public static void Main()
+    {
+        Game game = new Game();
+        game.Play();
+    }
+}
